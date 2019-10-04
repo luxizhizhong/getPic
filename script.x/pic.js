@@ -13,7 +13,8 @@
 // ==/UserScript==
 
 const config = {
-  pic52Btn: '下载当前预览图'
+  pic52Btn: '下载当前预览图',
+  downBtn: '去下载'
 }
 
 const removeADs = () => {
@@ -40,7 +41,7 @@ const removeADs = () => {
     // 获取到预览图的`url`
     const rand = Math.floor(Math.random() * 100000)
     const btn = $(`
-      <div id="previewBtn" style="
+      <div style="
         position: fixed;
         top: 40vh;
         left: 0;
@@ -49,13 +50,22 @@ const removeADs = () => {
         z-index: ${rand};
         cursor: pointer;
       ">
-        <div style="
+        <div id="previewBtn" style="
           padding: 10px;
           border-radius: 10px;
           background-image: linear-gradient(to right,#32e696,#00be6e);
           color: #fff;
         "  class="detailBtn-down download-page">
           ${ config.pic52Btn }
+        </div>
+        <div id="downloadBtn" style="
+          margin-top: 20px;
+          padding: 10px;
+          border-radius: 10px;
+          background-image: linear-gradient(to right,#32e696,#00be6e);
+          color: #fff;
+        ">
+          ${ config.downBtn }
         </div>
       </div>
     `)
@@ -64,5 +74,12 @@ const removeADs = () => {
       const img = $($('.pic-box img')[0]).attr('data-src')
       _self.open(img)
     })
+    $('#downloadBtn').click(()=> {
+      const devio = new URL(host)
+      const id = devio.pathname.split('/newpic/')[1].split('.html')[0]
+      _self.open(`https://dl.58pic.com/${ id }.html`)
+    })
+  } else if (host.includes(`dl.58pic.com`)) {
+    // 自动下载..
   }
 })(window);

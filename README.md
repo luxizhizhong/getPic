@@ -22,3 +22,7 @@ chmod u+x dev.sh
 ```
 
 open web-browser in: http://localhost:8080/pic.js
+
+## License
+
+MIT. 仅供学习参考!!
